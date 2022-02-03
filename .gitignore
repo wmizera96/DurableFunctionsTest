@@ -1,0 +1,6 @@
+.vs
+*user
+
+DurableFunctionsTest/bin
+DurableFunctionsTest/obj
+DurableFunctionsTest/Properties
