@@ -16,7 +16,7 @@ namespace DurableFunctionsTest
             [OrchestrationTrigger] IDurableOrchestrationContext context)
         {
 
-            return "orchestrator completed";
+            return "ChainingOrchestrator completed";
             var outputs = new List<string>();
 
             // Replace "hello" with the name of your Durable Activity Function.
