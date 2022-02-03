@@ -1,6 +1,13 @@
+#env settings
 .vs
 *user
 
+# build result
 DurableFunctionsTest/bin
 DurableFunctionsTest/obj
+
+# Properties
 DurableFunctionsTest/Properties
+
+# local settings
+DurableFunctionsTest/local.settings.json
