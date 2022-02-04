@@ -7,14 +7,14 @@ namespace DurableFunctionsTest
 {
     public static class Function
     {
-        [FunctionName("Capitalize")]
+        [FunctionName(nameof(Function.Capitalize))]
         public static Model Capitalize([ActivityTrigger] Model value)
         {
             var newName = value.Name.ToUpperInvariant();
             return new Model(newName);
         }
 
-        [FunctionName("AddStars")]
+        [FunctionName(nameof(Function.AddStars))]
         public static Model AddStars([ActivityTrigger] Model value)
         {
             var newName = $"***{value}###";
@@ -22,7 +22,7 @@ namespace DurableFunctionsTest
 
         }
 
-        [FunctionName("Reverse")]
+        [FunctionName(nameof(Function.Reverse))]
         public static Model Reverse([ActivityTrigger] Model value)
         {
             var newName = new string(value.Name.ToCharArray().Reverse().ToArray());

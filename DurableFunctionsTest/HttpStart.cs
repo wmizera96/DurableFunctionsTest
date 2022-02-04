@@ -13,7 +13,7 @@ namespace DurableFunctionsTest
 {
     public static class HttpStart
     {
-        [FunctionName("HttpStart")]
+        [FunctionName(nameof(HttpStart))]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "orhestrators/{orchestratorName}")] HttpRequest req,
             [DurableClient] IDurableClient starter, string orchestratorName)

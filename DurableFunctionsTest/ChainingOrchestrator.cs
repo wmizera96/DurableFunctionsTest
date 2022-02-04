@@ -6,7 +6,7 @@ namespace DurableFunctionsTest
 {
     public static class ChainingOrchestrator
     {
-        [FunctionName("ChainingOrchestrator")]
+        [FunctionName(nameof(ChainingOrchestrator))]
         public static async Task<Model> RunOrchestrator(
             [OrchestrationTrigger] IDurableOrchestrationContext context)
         {
