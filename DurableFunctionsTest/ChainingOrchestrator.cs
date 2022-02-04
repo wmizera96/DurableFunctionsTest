@@ -1,52 +1,24 @@
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
-using Microsoft.Extensions.Logging;
 
 namespace DurableFunctionsTest
 {
     public static class ChainingOrchestrator
     {
         [FunctionName("ChainingOrchestrator")]
-        public static async Task<string> RunOrchestrator(
+        public static async Task<Model> RunOrchestrator(
             [OrchestrationTrigger] IDurableOrchestrationContext context)
         {
 
-            return "ChainingOrchestrator completed";
-            var outputs = new List<string>();
+            var input = context.GetInput<Model>();
 
-            // Replace "hello" with the name of your Durable Activity Function.
-            //outputs.Add(await context.CallActivityAsync<string>("ChainingOrchestrator_Hello", "Tokyo"));
-            //outputs.Add(await context.CallActivityAsync<string>("ChainingOrchestrator_Hello", "Seattle"));
-            //outputs.Add(await context.CallActivityAsync<string>("ChainingOrchestrator_Hello", "London"));
+            var output1 = await context.CallActivityAsync<Model>(nameof(Function.Capitalize), input);
+            var output2 = await context.CallActivityAsync<Model>(nameof(Function.AddStars), output1);
+            var output3 = await context.CallActivityAsync<Model>(nameof(Function.Reverse), output2);
+            var output4 = await context.CallActivityAsync<Model>(nameof(Function.AddStars), output3);
 
-            // returns ["Hello Tokyo!", "Hello Seattle!", "Hello London!"]
-            //return outputs;
+            return output4;
         }
-
-        //[FunctionName("ChainingOrchestrator_Hello")]
-        //public static string SayHello([ActivityTrigger] string name, ILogger log)
-        //{
-        //    log.LogInformation($"Saying hello to {name}.");
-        //    return $"Hello {name}!";
-        //}
-
-        //[FunctionName("ChainingOrchestrator_HttpStart")]
-        //public static async Task<HttpResponseMessage> HttpStart(
-        //    [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestMessage req,
-        //    [DurableClient] IDurableOrchestrationClient starter,
-        //    ILogger log)
-        //{
-        //    // Function input comes from the request content.
-        //    string instanceId = await starter.StartNewAsync("ChainingOrchestrator", null);
-
-        //    log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
-
-        //    return starter.CreateCheckStatusResponse(req, instanceId);
-        //}
     }
 }

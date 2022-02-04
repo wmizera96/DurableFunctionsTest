@@ -6,8 +6,5 @@ using System.Threading.Tasks;
 
 namespace DurableFunctionsTest
 {
-    internal class Model
-    {
-        public string Name { get; set; }
-    }
+    public record Model(string Name);
 }

@@ -24,7 +24,7 @@ namespace DurableFunctionsTest
             {
                 var model = JsonConvert.DeserializeObject<Model>(requestBody);
 
-                var instanceId = await starter.StartNewAsync("ChainingOrchestrator", null);
+                var instanceId = await starter.StartNewAsync(orchestratorName, model);
 
                 return starter.CreateCheckStatusResponse(req, instanceId);
             }
