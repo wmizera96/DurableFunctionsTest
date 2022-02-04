@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace DurableFunctionsTest
 {
-    public record Model(string Name);
+    public record Model(string Name, double Number);
 }

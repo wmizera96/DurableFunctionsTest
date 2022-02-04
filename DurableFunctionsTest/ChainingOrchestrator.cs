@@ -13,10 +13,10 @@ namespace DurableFunctionsTest
 
             var input = context.GetInput<Model>();
 
-            var output1 = await context.CallActivityAsync<Model>(nameof(Function.Capitalize), input);
-            var output2 = await context.CallActivityAsync<Model>(nameof(Function.AddStars), output1);
-            var output3 = await context.CallActivityAsync<Model>(nameof(Function.Reverse), output2);
-            var output4 = await context.CallActivityAsync<Model>(nameof(Function.AddStars), output3);
+            var output1 = await context.CallActivityAsync<Model>(nameof(StringFunctions.Capitalize), input);
+            var output2 = await context.CallActivityAsync<Model>(nameof(StringFunctions.AddStars), output1);
+            var output3 = await context.CallActivityAsync<Model>(nameof(StringFunctions.Reverse), output2);
+            var output4 = await context.CallActivityAsync<Model>(nameof(StringFunctions.AddStars), output3);
 
             return output4;
         }
