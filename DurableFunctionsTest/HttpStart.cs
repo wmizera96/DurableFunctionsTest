@@ -24,13 +24,18 @@ namespace DurableFunctionsTest
             {
                 var model = JsonConvert.DeserializeObject<Model>(requestBody);
 
-                var instanceId = await starter.StartNewAsync(orchestratorName, model);
+                var instanceId = orchestratorName switch
+                {
+                    nameof(ChainingOrchestrator) => await starter.StartNewAsync(orchestratorName, model),
+                    nameof(FanOutFanInOrchestrator) => await starter.StartNewAsync(orchestratorName, model),
+                    _ => throw new ArgumentException($"Invalid orchestrator name: \"{orchestratorName}\"")
+                };
 
                 return starter.CreateCheckStatusResponse(req, instanceId);
             }
             catch (Exception ex)
             {
-                return new BadRequestObjectResult( new { ErrorMessage = ex.Message, Request = requestBody });
+                return new BadRequestObjectResult(new { ErrorMessage = ex.Message, Request = requestBody });
             }
         }
     }
